@@ -1,8 +1,15 @@
-import { render, screen } from '@testing-library/react';
-import App from './App';
+import { render, screen, cleanup } from "@testing-library/react";
+import App from "./App";
 
-test('renders learn react link', () => {
-  render(<App />);
-  const linkElement = screen.getByText(/learn react/i);
-  expect(linkElement).toBeInTheDocument();
+describe("test App component using react-tesing-library", () => {
+  afterEach(cleanup);
+  it("should render rows of draggable components", () => {
+    const { container } = render(<App />);
+    expect(container.firstChild).toHaveClass("App");
+    expect(container.firstChild.firstChild.firstChild).toHaveClass("row");
+    expect(container.firstChild.firstChild.firstChild.firstChild).toHaveClass(
+      "rectangle react-draggable"
+    );
+    screen.debug();
+  });
 });

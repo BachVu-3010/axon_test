@@ -9,7 +9,7 @@ const numberOfRow = process.env.REACT_APP_GRID_DIMENSION
   : 8;
 const sizeOfASquare = 50; // pixel
 
-const makeDistinctColors = (size) => {
+export const makeDistinctColors = (size) => {
   const colorSet = new Set();
   while (colorSet.size < size * size) {
     colorSet.add(randomColor());
@@ -24,7 +24,7 @@ const colorList = [...colorSet];
 function App() {
   const [elementList, setElementList] = useState([]);
 
-  const elementList1 = colorList.map((color, index) => {
+  const elementList_ = colorList.map((color, index) => {
     return {
       color: color,
       x_coord: (index % numberOfRow) * sizeOfASquare,
@@ -33,7 +33,7 @@ function App() {
   });
 
   useEffect(() => {
-    setElementList(elementList1);
+    setElementList(elementList_);
   }, []);
 
   const findIndexEndPosition = (position, start_index) => {
@@ -68,6 +68,7 @@ function App() {
   for (let i = 0; i < numberOfRow; i++) {
     rendered.push(
       <Row
+        key={i}
         handleSwitchPosition={handleSwitchPosition}
         items={elementList.slice(
           i * numberOfRow,
